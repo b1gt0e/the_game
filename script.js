@@ -26,6 +26,7 @@ async function initMap(lat, lon) {
         title: 'Current Position',
         gmpDraggable: true,
     });
+    mapElement.append(marker);
 }
 //initMap();
 
