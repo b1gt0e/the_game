@@ -2,11 +2,40 @@ console.log("Test");
 
 getLocation();
 
+
+async function initMap(lat, lon) {
+    //  Request the needed libraries.
+    const [{ Map }, { AdvancedMarkerElement }] = await Promise.all([
+        google.maps.importLibrary('maps'),
+        google.maps.importLibrary('marker'),
+    ]);
+    // Get the gmp-map element.
+    const mapElement = document.querySelector('gmp-map');
+    // Get the inner map.
+    const innerMap = mapElement.innerMap;
+    // Set map options.
+    innerMap.setOptions({
+        mapTypeControl: false,
+    });
+    // Add a marker positioned at the map center (Uluru).
+    const marker = new AdvancedMarkerElement({
+        map: innerMap,
+        position: {lat: lat, lng: lon},
+        title: 'Uluru/Ayers Rock',
+    });
+}
+//initMap();
+
+
+
+
+
 function getLocation() {
     navigator.geolocation.getCurrentPosition(position => {
         const { latitude, longitude } = position.coords;
         console.log(position.coords);
-        showPosition(position);
+        console.log(latitude, longitude);
+        showPosition(latitude, longitude);
         //getDistanceFromLatLonInFt(position)
         // Show a map centered at latitude / longitude.
     }); 
@@ -14,12 +43,13 @@ function getLocation() {
 
 
 
-function showPosition(position) {
-    let latlon = position.coords.latitude + "," + position.coords.longitude;
+function showPosition(lat, lon) {
+    let latlon = lat + "," + lon;
+    initMap(lat, lon);
 
-    let img_url = "https://maps.googleapis.com/maps/api/staticmap?center="+latlon+"&zoom=14&size=400x300&sensor=false&markers=color:blue%7Clabel:S%7C"+latlon+"&key=AIzaSyAFvqraMHzsOODo2TnGG_OIJYC9OTrUepI";
-    console.log(img_url);
-    document.getElementById("mapholder").innerHTML = "<img src='"+img_url+"'>";
+    //let img_url = "https://maps.googleapis.com/maps/api/staticmap?center="+latlon+"&zoom=14&size=400x300&sensor=false&markers=color:blue%7Clabel:S%7C"+latlon+"&key=AIzaSyAFvqraMHzsOODo2TnGG_OIJYC9OTrUepI";
+    //console.log(img_url);
+    //document.getElementById("mapholder").innerHTML = "<img src='"+img_url+"'>";
 }
 
 
