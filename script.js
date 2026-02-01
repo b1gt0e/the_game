@@ -2,7 +2,6 @@ console.log("Test");
 
 getLocation();
 
-
 async function initMap(lat, lon) {
     //  Request the needed libraries.
     const [{ Map }, { AdvancedMarkerElement }] = await Promise.all([
@@ -16,12 +15,16 @@ async function initMap(lat, lon) {
     // Set map options.
     innerMap.setOptions({
         mapTypeControl: false,
+        streetViewControl: false,
+        rotateControl: false,
+        fullscreenControl: true,
     });
-    // Add a marker positioned at the map center (Uluru).
+    // Add a marker positioned at the current location.
     const marker = new AdvancedMarkerElement({
         map: innerMap,
         position: {lat: lat, lng: lon},
-        title: 'Uluru/Ayers Rock',
+        title: 'Current Position',
+        gmpDraggable: true,
     });
 }
 //initMap();
