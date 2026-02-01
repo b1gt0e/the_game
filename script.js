@@ -17,8 +17,8 @@ function getLocation() {
 function showPosition(position) {
     let latlon = position.coords.latitude + "," + position.coords.longitude;
 
-    let img_url = "https://maps.googleapis.com/maps/api/staticmap?center="+latlon+"&zoom=14&size=400x300&sensor=false&markers=color:blue%7Clabel:S%7C"+latlon+"&key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg";
-
+    let img_url = "https://maps.googleapis.com/maps/api/staticmap?center="+latlon+"&zoom=14&size=400x300&sensor=false&markers=color:blue%7Clabel:S%7C"+latlon+"&key=AIzaSyAFvqraMHzsOODo2TnGG_OIJYC9OTrUepI";
+    console.log(img_url);
     document.getElementById("mapholder").innerHTML = "<img src='"+img_url+"'>";
 }
 
