@@ -81,11 +81,11 @@ function deg2rad(deg) {
 
 async function calculateScore( dist ){
     var dif = 2;
-    if (dist < 20) {
+    if (dist < 100) {
         return 1000;
     }
     else if (dist < 1000) {
-        return Math.pow((1000-dist),dif-1)/Math.pow(1000, dif-1);
+        return Math.pow((1000-dist),dif)/Math.pow(1000, dif-1);
     }
     else {
         return 0;
