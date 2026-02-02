@@ -40,44 +40,44 @@ html, body {
 }
 
 #show-score-button {
-  align-items: center;
-  background: white;
-  border: none;
-  border-radius: 2px;
-  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
-  color: rgb(86, 86, 86);
-  cursor: pointer;
-  display: flex;
-  font-family: Roboto, Arial, sans-serif;
-  font-size: 18px;
-  font-weight: 400;
-  height: 40px;
-  justify-content: center;
-  margin: 10px 0;
-  padding: 0 17px;
+    align-items: center;
+    background: white;
+    border: none;
+    border-radius: 2px;
+    box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+    color: rgb(86, 86, 86);
+    cursor: pointer;
+    display: flex;
+    font-family: Roboto, Arial, sans-serif;
+    font-size: 30px;
+    font-weight: 400;
+    height: 20%;
+    justify-content: center;
+    margin: 10px 0;
+    padding: 0 17px;
 }
 
 #score-display {
     align-items: center;
-  background: white;
-  border: none;
-  border-radius: 2px;
-  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
-  color: rgb(86, 86, 86);
-  cursor: pointer;
-  display: flex;
-  font-family: Roboto, Arial, sans-serif;
-  font-size: 18px;
-  font-weight: 400;
-  height: 40px;
-  justify-content: center;
-  margin: 10px 0;
-  padding: 0 17px;
+    background: white;
+    border: none;
+    border-radius: 2px;
+    box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+    color: rgb(86, 86, 86);
+    cursor: pointer;
+    display: flex;
+    font-family: Roboto, Arial, sans-serif;
+    font-size: 30px;
+    font-weight: 400;
+    height: 20%;
+    justify-content: center;
+    margin: 10px 0;
+    padding: 0 17px;
 }
 
 #show-score-button:hover {
-  background: #f4f4f4;
-  color: #000;
+    background: #f4f4f4;
+    color: #000;
 }
 
 gmp-map {
