@@ -8,7 +8,7 @@ document.getElementById("controls").append(h);
 
 async function initMap(lat, lon) {
     //  Request the needed libraries.
-    const [{ Map }, { AdvancedMarkerElement }] = await Promise.all([
+    const [{ Map }, { AdvancedMarkerElement, PinElement }] = await Promise.all([
         google.maps.importLibrary('maps'),
         google.maps.importLibrary('marker'),
     ]);
@@ -23,6 +23,9 @@ async function initMap(lat, lon) {
         rotateControl: false,
         fullscreenControl: true,
     });
+    const pinScaled = new PinElement({
+        scale: 3,
+    });
     // Add a marker positioned at the current location.
     const draggableMarker = new AdvancedMarkerElement({
         map: innerMap,
@@ -30,6 +33,7 @@ async function initMap(lat, lon) {
         title: 'Current Position',
         gmpDraggable: true,
     });
+    draggableMarker.append(pinScaled); // scale marker so it is more visible
     mapElement.append(draggableMarker);
     draggableMarker.addListener('dragend', (event) => {
         const position = draggableMarker.position;
