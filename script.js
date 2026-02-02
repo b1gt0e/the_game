@@ -3,8 +3,11 @@ document.querySelector("#loader").style.visibility = "visible";
 
 getLocation();
 
-let h = document.createElement("h3");
-document.getElementById("controls").append(h);
+const scoreElement = document.createElement("h3");
+document.getElementById("controls").append(scoreElement);
+
+const distElement = document.createElement("h3");
+document.getElementById("controls").append(distElement);
 
 async function initMap(lat, lon) {
     //  Request the needed libraries.
@@ -24,7 +27,7 @@ async function initMap(lat, lon) {
         fullscreenControl: true,
     });
     const pinScaled = new PinElement({
-        scale: 10,
+        scale: 8,
     });
     // Add a marker positioned at the current location.
     const draggableMarker = new AdvancedMarkerElement({
@@ -38,6 +41,14 @@ async function initMap(lat, lon) {
     draggableMarker.addListener('dragend', (event) => {
         const position = draggableMarker.position;
         console.log(`Pin dropped at: ${position.lat}, ${position.lng}`);
+    });
+
+    const scoreButton = document.getElementById("show-score-button");
+    scoreButton.addEventListener('click', () => {
+        //all the code for after reveal score button is pressed
+        //var flightPath;
+        
+        getDistanceFromLatLonInFt();
     });
 }
 
@@ -55,8 +66,10 @@ function getLocation() {
 }
 
 async function getDistanceFromLatLonInFt() {
-    h.id = "score-display";
-    h.innerText = "Loading...";
+    scoreElement.id = "score-display";
+    scoreElement.innerText = "Loading...";
+    distElement.id = "score-display";
+    distElement.innerText = "Loading...";
     navigator.geolocation.getCurrentPosition(position => {
 
         var lat1 = position.coords.latitude;
@@ -77,13 +90,22 @@ async function getDistanceFromLatLonInFt() {
 
 
         calculateScore(ft).then((score) => {
-            h.innerText = "Score: " + score;
+            scoreElement.innerText = "Score: " + score;
+            distElement.innerText = Math.round(ft) + "ft away"
         });
 
         const toandfro = [
             {lat: lat1, lng: lon1},
             {lat: lat2, lng: lon2}
         ];
+        console.log(toandfro);
+        const flightPath = new google.maps.Polyline({
+            path: toandfro,
+            strokeColor: "#FF0000",
+            strokeOpacity: 1.0,
+            strokeWeight: 20,
+        });
+        flightPath.setMap(document.querySelector('gmp-map').innerMap);
         
     });
     
