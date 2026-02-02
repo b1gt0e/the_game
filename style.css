@@ -54,7 +54,6 @@ html, body {
     height: 60%;
     justify-content: center;
     margin: 10px 0;
-    padding: 0 17px;
 }
 
 #score-display {
@@ -72,7 +71,6 @@ html, body {
     height: 60%;
     justify-content: center;
     margin: 10px 0;
-    padding: 0 17px;
 }
 
 #show-score-button:hover {

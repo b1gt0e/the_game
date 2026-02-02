@@ -24,7 +24,7 @@ async function initMap(lat, lon) {
         fullscreenControl: true,
     });
     const pinScaled = new PinElement({
-        scale: 3,
+        scale: 10,
     });
     // Add a marker positioned at the current location.
     const draggableMarker = new AdvancedMarkerElement({
