@@ -27,7 +27,7 @@ async function initMap(lat, lon) {
         fullscreenControl: true,
     });
     const pinScaled = new PinElement({
-        scale: 8,
+        scale: 6,
     });
     // Add a marker positioned at the current location.
     const draggableMarker = new AdvancedMarkerElement({
@@ -46,10 +46,35 @@ async function initMap(lat, lon) {
     const scoreButton = document.getElementById("show-score-button");
     scoreButton.addEventListener('click', () => {
         //all the code for after reveal score button is pressed
-        //var flightPath;
-        
         getDistanceFromLatLonInFt();
     });
+
+    // box around campus
+    const northCampusPoints = [
+        {lat: 35.78777151085619, lng: -78.67692705136247},
+        {lat: 35.78892015839864, lng: -78.67615800833093},
+        {lat: 35.78869241063715, lng: -78.67472978566926},
+        {lat: 35.78901917896282, lng: -78.67455888722704},
+        {lat: 35.787622977636815, lng: -78.66789384792357},
+        {lat: 35.78612772773917, lng: -78.66242509797308},
+        {lat: 35.785731630338056, lng: -78.66303544966657},
+        {lat: 35.78544445848715, lng: -78.66334062555343},
+        {lat: 35.78500874749073, lng: -78.66354814517727},
+        {lat: 35.78458293670858, lng: -78.66415849682055},
+        {lat: 35.78388975148703, lng: -78.66484209062355},
+        {lat: 35.78323121995871, lng: -78.665244922679}
+    ];
+
+    const nCampus = new google.maps.Polygon({
+        path: northCampusPoints,
+        strokeColor: "#00FF00",
+        strokeOpacity: 0.3,
+        strokeWeight: 5,
+        fillColor: "#00FF00",
+        fillOpacity: 0.1,
+    });
+    nCampus.setMap(innerMap);
+
 }
 
 
@@ -99,13 +124,13 @@ async function getDistanceFromLatLonInFt() {
             {lat: lat2, lng: lon2}
         ];
         console.log(toandfro);
-        const flightPath = new google.maps.Polyline({
+        const distLine = new google.maps.Polyline({
             path: toandfro,
             strokeColor: "#FF0000",
             strokeOpacity: 1.0,
-            strokeWeight: 20,
+            strokeWeight: 10,
         });
-        flightPath.setMap(document.querySelector('gmp-map').innerMap);
+        distLine.setMap(document.querySelector('gmp-map').innerMap);
         
     });
     
