@@ -1,4 +1,10 @@
+document.querySelector("body").style.visibility = "hidden";
+document.querySelector("#loader").style.visibility = "visible";
+
 getLocation();
+
+let h = document.createElement("h3");
+document.getElementById("controls").append(h);
 
 async function initMap(lat, lon) {
     //  Request the needed libraries.
@@ -37,19 +43,22 @@ function getLocation() {
         const { latitude, longitude } = position.coords;
         console.log(position.coords);
         console.log(latitude, longitude);
-        initMap(latitude, longitude);
+        initMap(latitude, longitude).then( () => {
+            document.querySelector("#loader").style.display = "none";
+            document.querySelector("body").style.visibility = "visible";
+        } );
     });
 }
 
 async function getDistanceFromLatLonInFt() {
+    h.id = "score-display";
+    h.innerText = "Loading...";
     navigator.geolocation.getCurrentPosition(position => {
+
         var lat1 = position.coords.latitude;
         var lon1 = position.coords.longitude;
-        //const { lat1, lon1 } = position.coords;
         var lat2 = document.querySelector('gmp-advanced-marker').position.lat;
         var lon2 = document.querySelector('gmp-advanced-marker').position.lng;
-        //console.log(lat1, lon1);
-        //console.log(lat2, lon2);
         var R = 6371; // Radius of the earth in km
         var dLat = deg2rad(lat2-lat1);  // deg2rad below
         var dLon = deg2rad(lon2-lon1);
@@ -60,14 +69,17 @@ async function getDistanceFromLatLonInFt() {
         var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
         var d = R * c; // Distance in km
         ft = d * 3280.84; // km to ft
-        //console.log(R, dLat, dLon, a, c, d, ft);
         console.log(ft);
 
+
         calculateScore(ft).then((score) => {
-            let p = document.createElement("p");
-            p.innerText = score;
-            document.body.append(p);
+            h.innerText = "Score: " + score;
         });
+
+        const toandfro = [
+            {lat: lat1, lng: lon1},
+            {lat: lat2, lng: lon2}
+        ];
         
     });
     
@@ -81,33 +93,20 @@ function deg2rad(deg) {
 
 async function calculateScore( dist ){
     var dif = 2;
+    var score = 0;
+    console.log("dist: ", dist)
     if (dist < 100) {
-        return 1000;
+        score = 1000;
     }
     else if (dist < 1000) {
-        return Math.pow((1000-dist),dif)/Math.pow(1000, dif-1);
+        score =  Math.pow((1000-dist),dif)/Math.pow(1000, dif-1);
     }
-    else {
-        return 0;
-    }
+
+    return Math.round(score);
 }
 
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 async function showScore() {
-    /*getDistanceFromLatLonInFt().then((ft) => {
-        console.log("this happens instantly");
-        console.log(ft);
-        var score = calculateScore(distInFt);
-        let p = document.createElement("p");
-        p.innerText = score;
-        document.body.append(p);
-    });*/
-
     getDistanceFromLatLonInFt();
-    //getDistanceFromLatLonInFt().then(x => { console.log(x); } );
-    //(async () => {console.log(await getDistanceFromLatLonInFt())})()
-
-    await delay(7000);
-    
 }
